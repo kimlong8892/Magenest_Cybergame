@@ -1,0 +1,10 @@
+<fieldset class="fieldset info">
+    <div class="field choice">
+        <?php if($block->checkManager()) { ?>
+            <input type="checkbox" name="is_cyber_manager" id="is_cyber_manager" class="checkbox" value="1" checked>
+        <?php } else { ?>
+            <input type="checkbox" name="is_cyber_manager" id="is_cyber_manager" class="checkbox" value="1">
+        <?php } ?>
+        <label for="is_subscribed" class="label"><span><?= $block->escapeHtml(__("I'm a cyber manager")) ?></span></label>
+    </div>
+</fieldset>

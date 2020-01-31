@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="alert.urls">
+            <block class="Magenest\Cybergame\Block\Cybergame\ShowInProduct" name="show_cyber_in_product" template="Magenest_Cybergame::show_in_product.phtml" />
+        </referenceContainer>
+    </body>
+</page>

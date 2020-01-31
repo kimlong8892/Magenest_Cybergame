@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magenest\Cybergame\Block\Cybergame\AddOrEdit" name="cyber_manager_add_or_edit" template="Magenest_Cybergame::add_or_edit.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,66 @@
+<script>
+    require(['jquery', 'mage/translate', 'Magento_Ui/js/modal/alert'], function ($, $m, alert) {
+        $(document).ready(function () {
+            $("#alert-account").hide();
+            $("#alert-no-account").hide();
+            var url = BASE_URL+'cybergame/cybergame/showdetail/id/' + <?= $block->getProductId() ?>;
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    data = $.parseJSON(data);
+                    if(data.length == 0){
+                        $("#container-cyber").remove();
+                        return;
+                    }
+                    var number_pc = "<p>"+$m('Number pc')+": " + data.number_pc + "</p>";
+                    var address = "<p>"+$m('Address')+": " + data.address + "</p>";
+                    var food_price = "<p>"+$m('Food price')+": " + data.food_price + "</p>";
+                    var drink_price = "<p>"+$m('Drink price')+": " + data.drink_price + "</p>";
+                    $("#show-cyber").html(number_pc + address + food_price + drink_price);
+                    //
+                    $("#product_addtocart_form").prepend('<div style="padding: 15px 0;"><lable>'+$m('Acount name')+': </lable><br><input name="account-name" id="account-cyber" type="text"></div>');
+                    $("#product-addtocart-button").click(function () {
+                        if($("#account-cyber").val() != '')
+                        {
+                            var url = BASE_URL+'cybergame/cybergame/checkaccount/name/' + $("#account-cyber").val();
+                            $.ajax({
+                                type: "GET",
+                                url: url,
+                                success: function (data) {
+                                    if(data == 0){
+                                        $("#alert-account").hide();
+                                        $("#alert-no-account").show();
+                                    }else{
+                                        $("#alert-account").show();
+                                        $("#alert-no-account").hide();
+                                    }
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert({
+                                title: $.mage.__('Error'),
+                                content: $.mage.__('Account name required'),
+                                actions: {
+                                    always: function(){}
+                                }
+                            });
+                            return false;
+                        }
+                    });
+                    $(".price").text("$" + parseInt($("#qty").val()) * 10000);
+                    $("#qty").change(function () {
+                        $(".price").text("$" + parseInt($(this).val()) * 10000);
+                    });
+                }
+            });
+        });
+    });
+</script>
+<div id="container-cyber">
+    <div id="show-cyber"></div>
+    <p id="alert-account" style="color: red;"><?= __('Account was exist in oursystem. You are buying hour for this acocunt') ?></p>
+    <p id="alert-no-account" style="color: blue;"><?= __('We will create new account for you') ?></p>
+</div>

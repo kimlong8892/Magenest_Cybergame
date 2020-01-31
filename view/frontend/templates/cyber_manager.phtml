@@ -1,0 +1,37 @@
+<?php
+    $listRoom = $this->getRoom()->getData();
+?>
+<div class="table-wrapper orders-history">
+    <?php if($block->checkManager()) { ?>
+        <div style="text-align: center;">
+            <button><a href="<?= $block->getBaseUrl().'cybergame/cybergame/add' ?>"><?= __('Add New Room') ?></a></button>
+        </div>
+    <?php } ?>
+    <table class="data table table-order-items history" id="my-orders-table">
+        <thead>
+        <tr>
+            <th scope="col"><?= __('product_id') ?></th>
+            <th scope="col"><?= __('Room name') ?></th>
+            <th scope="col"><?= __('Price') ?></th>
+            <th scope="col"><?= __('Action') ?></th>
+        </tr>
+        </thead>
+        <tbody>
+            <?php forEach($listRoom as $room) { ?>
+                <tr>
+                    <td><?= $room['product_id'] ?></td>
+                    <td><?= $block->getProduct($room['product_id'])->getName() ?></td>
+                    <td><?= $block->getProduct($room['product_id'])->getPrice() ?></td>
+                    <?php if($block->checkManager()) { ?>
+                        <td><button><a href="<?= $block->getBaseUrl().'cybergame/cybergame/edit/id/'.$room['id'] ?>"><?= __('Edit') ?></a></button></td>
+                    <?php } else { ?>
+                        <td><button disabled><?= __('You not a Cyber Manager') ?></button></td>
+                    <?php } ?>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>

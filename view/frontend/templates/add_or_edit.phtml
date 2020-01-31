@@ -1,0 +1,50 @@
+<?php
+    $room = $block->getRoomEdit();
+?>
+<style>
+    input, select
+    {
+        margin: 10px 0;
+    }
+</style>
+<form action="<?= $block->getBaseUrl().'cybergame/cybergame/save' ?>" method="post">
+    <?php if($room != null) { ?>
+        <h3><?= __('Edit room id:').$room['id'] ?></h3>
+        <input name="id" type="hidden" value="<?= $room['id'] ?>">
+        <lable>Name</lable>
+        <input type="text" id="name" name="nameroom" value="<?= $block->getProduct($room['product_id'])->getName() ?>">
+        <lable>Price</lable>
+        <input type="text" id="price" name="price" value="<?= $block->getProduct($room['product_id'])->getPrice() ?>">
+    <?php } else { ?>
+        <select name="product-id" id="product-id">
+            <?php forEach($block->getProductSelect() as $product) { ?>
+                <option value="<?= $product['entity_id'] ?>"><?= $product['sku'] ?></option>
+            <?php } ?>
+        </select>
+    <?php } ?>
+    <lable>Number pc</lable>
+    <input type="text" id="number-pc" name="number-pc" value="<?= $room['number_pc'] ?? '' ?>">
+    <lable>Address</lable>
+    <input type="text" id="address" name="address" value="<?= $room['address'] ?? '' ?>">
+    <lable>Food price</lable>
+    <input type="text" id="food-price" name="food-price" value="<?= $room['food_price'] ?? '' ?>">
+    <lable>Drink price</lable>
+    <input type="text" id="drink-price" name="drink-price" value="<?= $room['drink_price'] ?? '' ?>">
+    <button id="save">Save</button>
+</form>
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            $("#name").attr({'disabled':'disabled'});
+            $("#price").attr({'disabled':'disabled'});
+            $("#number-pc, #food-price, #drink-price").keypress(function (e) {
+                if(!(e.key >= 0 && e.key <= 9 && e.key != ' '))
+                    return false;
+                return true;
+            });
+            $('#number-pc, #food-price, #drink-price').on("paste",function() {
+                return false;
+            });
+        });
+    });
+</script>
