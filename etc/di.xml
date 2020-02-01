@@ -12,10 +12,6 @@
         <arguments>
             <argument name="mainTable" xsi:type="string">room_extra_option</argument>
             <argument name="resourceModel" xsi:type="string">Magenest\Cybergame\Model\ResourceModel\RoomExtraOption</argument>
-            <argument name="identifierName" xsi:type="string">asdasdasd</argument>
         </arguments>
     </virtualType>
-    <type name="Magento\Customer\Controller\Account\EditPost">
-        <plugin name="Magenest_Cybergame::edit_is_manager" type="Magenest\Cybergame\Plugin\Cyber\Edit" sortOrder="1" disabled="false"/>
-    </type>
 </config>

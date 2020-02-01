@@ -4,8 +4,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Magento_Backend::Cyber"
-                          title="Cyber Management" sortOrder="60">
+                <resource id="Magento_Backend::Cyber" title="Cyber Management" sortOrder="60">
                     <resource id="Magento_Backend::Room" title="Room"/>
                 </resource>
             </resource>

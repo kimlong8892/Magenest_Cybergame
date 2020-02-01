@@ -24,9 +24,10 @@ class CheckAccount extends Action
     }
     public function execute()
     {
-        $row = $this->modelGameAcountListFactory->create()->getCollection()->addFieldToFilter('account_name', $this->_request->getParam('name'))->count();
+        $id = $this->modelGameAcountListFactory->create()->load($this->_request->getParam('name'), 'account_name')->getId();
+        $id = $id != null ? $id : -1;
         $result = $this->jsonFactory->create();
-        $result->setData($row);
+        $result->setData($id);
         return $result;
     }
 }

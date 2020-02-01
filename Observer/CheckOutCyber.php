@@ -29,21 +29,24 @@ class CheckOutCyber implements ObserverInterface
     public function execute(EventObserver $observer)
     {
         $data = $this->request->getParams();
-        $modelGameAccount = $this->modelGameAccountList->create();
-        $accountData = $modelGameAccount->getCollection()->addFieldToFilter('account_name', $data['account-name']);
-        if($accountData->count() != 0){
-            $modelGameAccount->load($accountData->getFirstItem()->getData('id'));
-            $modelGameAccount->setData('hour', $data['qty'] + $accountData->getFirstItem()->getData('hour'));
-        }else{
-            $modelGameAccount->setData('hour', $data['qty']);
-        }
-        $modelGameAccount->setData('product_id', 1);
-        $modelGameAccount->setData('password', 1);
-        $modelGameAccount->setData('account_name', $data['account-name']);
-        try {
-            $this->gamerAccountList->save($modelGameAccount);
-        } catch (Exception $exception){
-            //
+        if(isset($data['account-name']))
+        {
+            try {
+                $modelGameAccount = $this->modelGameAccountList->create();
+                $modelGameAccount->load($data['account-name'],'account_name');
+                if($modelGameAccount->getData('id') != null){
+                    $modelGameAccount->setData('hour', $data['qty'] + $modelGameAccount->getData('hour'));
+                } else {
+                    $modelGameAccount = $this->modelGameAccountList->create();
+                    $modelGameAccount->setData('hour', $data['qty']);
+                }
+                $modelGameAccount->setData('product_id', 1);
+                $modelGameAccount->setData('password', 1);
+                $modelGameAccount->setData('account_name', $data['account-name']);
+                $this->gamerAccountList->save($modelGameAccount);
+            } catch (Exception $exception){
+                // ...
+            }
         }
     }
 }

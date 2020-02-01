@@ -14,7 +14,7 @@
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-            <block class="Magenest\Cybergame\Block\Cybergame\Show" name="cyber_manager" template="Magenest_Cybergame::cyber_manager.phtml" />
+            <block class="Magenest\Cybergame\Block\Cybergame\Show" name="cyber_manager" template="Magenest_Cybergame::cyber_manager.phtml" cacheable="false"/>
         </referenceContainer>
     </body>
 </page>
